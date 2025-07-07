@@ -1,1 +1,17 @@
+type Student {
+  id: ID!
+  name: String!
+  id = String!
+}
+
+type Query {
+  allStudents: [VisitLog]
+  studentById(id: ID!): VisitLog
+}
+
+type Mutation {
+  addStudent(name: String!, id: String!): VisitLog
+  updateStudent(name: String!, id: String!): VisitLog
+  deleteStudent(id: ID!): Boolean
+}
 
