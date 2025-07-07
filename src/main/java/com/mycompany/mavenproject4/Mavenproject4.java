@@ -15,6 +15,8 @@ import javax.swing.table.TableCellRenderer;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
 public class Mavenproject4 extends JFrame {
 
@@ -23,27 +25,36 @@ public class Mavenproject4 extends JFrame {
     
     private JTextField nameField;
     private JTextField nimField;
+    
     private JComboBox<String> studyProgramBox;
     private JComboBox<String> purposeBox;
     private JButton addButton;
     private JButton clearButton;
+    private JButton editButton;
+    private JButton deleteButton;
     
     private boolean actionColumnsAdded = false;
+    private boolean actionColumnsCleared = false;
+    private boolean actionColumnsDeleted = false;
+    private boolean actionColumnsEdited = false;
+    
 
     public Mavenproject4() {
         setTitle("Library Visit Log");
-        setSize(800, 500);
+        setSize(1000, 650);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
 
-        JPanel inputPanel = new JPanel(new GridLayout(5, 2, 10, 10));
+        JPanel inputPanel = new JPanel(new GridLayout(8, 6, 5, 5));
         nameField = new JTextField();
         nimField = new JTextField();
         studyProgramBox = new JComboBox<>(new String[] {"Sistem dan Teknologi Informasi", "Bisnis Digital", "Kewirausahaan"});
         purposeBox = new JComboBox<>(new String[] {"Membaca", "Meminjam/Mengembalikan Buku", "Research", "Belajar"});
         addButton = new JButton("Add");
         clearButton = new JButton("Clear");
+        editButton = new JButton ("Edit");
+        deleteButton = new JButton ("Delete");
 
         inputPanel.setBorder(BorderFactory.createTitledBorder("Visit Entry Form"));
         inputPanel.add(new JLabel("NIM:"));
@@ -56,6 +67,8 @@ public class Mavenproject4 extends JFrame {
         inputPanel.add(purposeBox);
         inputPanel.add(addButton);
         inputPanel.add(clearButton);
+        inputPanel.add(editButton);
+        inputPanel.add(deleteButton);
 
         add(inputPanel, BorderLayout.NORTH);
 
@@ -78,10 +91,27 @@ public class Mavenproject4 extends JFrame {
                 if (!actionColumnsAdded) {
                     addActionColumns();
                     actionColumnsAdded = true;
+                    
+                }
+                
+                if (!actionColumnsCleared) {
+                    clearActionColumns();
+                    actionColumnsCleared = true;
+                }
+                
+                if (!actionColumnsDeleted) {
+                    deleteActionColumns();
+                    actionColumnsDeleted = true;
+                }
+                
+                if (!actionColumnsEdited) {
+                    editActionColumns();
+                    actionColumnsEdited = true;
                 }
             }
         });
     }
+
     
     private void addActionColumns() {
         tableModel.addColumn("Action");
@@ -93,8 +123,23 @@ public class Mavenproject4 extends JFrame {
         visitTable.getColumn("Action").setCellRenderer(new ButtonRenderer());
 
         visitTable.getColumn("Edit").setCellEditor(new ButtonEditor(new JCheckBox()));
+        
+        if (nameField.getText().isEmpty() || nimField.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "NIM dan Nama harus diisi!");
+        }
     }
-
+    
+    private void editActionColumns() {
+        
+    }
+    
+    private void deleteActionColumns() {
+        
+    }
+    
+    private void clearActionColumns() {
+        
+    }
     public static void main(String[] args) {
         SwingUtilities.invokeLater(Mavenproject4::new);
     }
